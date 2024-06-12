@@ -290,11 +290,12 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 
 ##### Yolov5/data/unit_1_label에 저장된 값 확인
 
-![image](https://github.com/snoopyeom/prac/assets/19545380/0fa43f22-d44b-4715-b31e-ac7e255170ed)
+![19](https://github.com/snoopyeom/ai1_DeeplearningProject/assets/165875110/8c460072-e2f1-4046-9c18-920082526b17)
 
-![image](https://github.com/snoopyeom/prac/assets/19545380/44977f4e-6ffe-4eb1-8a2c-93ac9b72820c)
+![20](https://github.com/snoopyeom/ai1_DeeplearningProject/assets/165875110/e95eb4b0-b3fb-45c0-a38d-340d67e52878)
 
-![image](https://github.com/snoopyeom/prac/assets/19545380/1796b040-1c60-4122-b42c-0dc776570a04)
+![21](https://github.com/snoopyeom/ai1_DeeplearningProject/assets/165875110/07a09b32-c849-4341-b463-8166acc558d9)
+
 
 
 
