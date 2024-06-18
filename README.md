@@ -106,7 +106,7 @@ CUDA 및 cuDNN: NVIDIA의 CUDA Toolkit과 cuDNN 라이브러리를 설치
 Python: Python 3.8 이상 필요
 
 #### 필수 라이브러리 설치
-PyTorch: YOLOv5는 PyTorch 프레임워크를 사용합니다. PyTorch는 [PyTorch](https://pytorch.org/)에서 설치할 수 있습니다.
+PyTorch: YOLOv5는 PyTorch 프레임워크를 사용합니다. PyTorch는 [PyTorch](https://pytorch.org/)에서 설치할 수 있습니다. 
 YoloV5의 경우 최소 PyTorch 1.7이상 필요
 
 기타 라이브러리: 필요한 추가 Python 라이브러리들은 requirements.txt 파일에 명시되어 있습니다. 이를 설치하려면 다음 명령을 사용하면 된다.
@@ -240,6 +240,7 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 * Cfg : YOLOv5 모델 구성 파일의 경로
 * Weights : 사전 훈련된 가중치 파일의 경로 
 * Name : 훈련 결과 저장할 디렉토리 이름 지정. 훈련 중 생성되는 가중치 파일, 로그 파일 및 결과 이미지 등이 저장됨
+* epoch: 전체 데이터셋을 학습 하는 횟수
 
 ![image](https://github.com/snoopyeom/prac/assets/19545380/0339c78d-f6fb-4758-9022-f6c77fdb9ea1)
 
@@ -255,7 +256,9 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 (YoloV5 공식 깃허브에 모델 성능을 높이는 팁을 참고함)
 * 데이터 셋이 충분히 크고 라벨링이 정확해야함(당연한 얘기)
 * 전체 제이터 셋에  Background image(탐지할 물체가 없는 데이터) 0-10%넣기-이 이미지를 넣어주면 False Positives(FP)가 줄어드는 효과를 볼 수 있다.
-* Pretrained weights 사용하기 
+* Pretrained weights 사용하기
+* epoch을 300으로 시작했을때, overfitting이 일어나면 줄이고, 일어나지 않은 경우 늘려보면서 진행한다.
+* input으로 들어가는 이미지 사이즈가 학습 때 설정한 이미지 사이즈와 같아야한다.
 
 
 
