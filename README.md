@@ -110,9 +110,12 @@ PyTorch: YOLOv5는 PyTorch 프레임워크를 사용합니다. PyTorch는 [PyTor
 YoloV5의 경우 최소 PyTorch 1.7이상 필요
 
 기타 라이브러리: 필요한 추가 Python 라이브러리들은 requirements.txt 파일에 명시되어 있습니다. 이를 설치하려면 다음 명령을 사용하면 된다.
+requirements에는 base로 matplotlib, opencv, tqdm등 과plotting을 위한 pandas와 seaborn 등이 들어있다. 
 ```python
    pip install -r requirements.txt
 ```
+
+
 
 ### 🛠️ 환경 설정
 * YOLOv5 클론: YOLOv5 코드를 GitHub에서 클론합니다:
@@ -241,6 +244,7 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 * Weights : 사전 훈련된 가중치 파일의 경로 
 * Name : 훈련 결과 저장할 디렉토리 이름 지정. 훈련 중 생성되는 가중치 파일, 로그 파일 및 결과 이미지 등이 저장됨
 * epoch: 전체 데이터셋을 학습 하는 횟수
+* device:GPU/CPU 세팅 => 0/ 0,1,2,3 / cpu 이런식으로 바꿔주면 됨됨
 
 ![image](https://github.com/snoopyeom/prac/assets/19545380/0339c78d-f6fb-4758-9022-f6c77fdb9ea1)
 
@@ -265,8 +269,9 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 
 ## 📒 훈련 결과
 #### Yolov5/runs/train/gun_yolov5s_results8폴더를 통해 여러 결과 값을 확인
-* Precison : 모델이 올바르게 예측한 비율 (모델이 예측한 결과 중 실제 양품인 비율)
+* Precison : 모델이 올바르게 예측한 비율 (모델이 양품이라고 예측한 결과 중 실제 양품인 비율)
 * Recall : 모델이 실제로 발견해야 하는 것 중 얼마나 발견했는지 비율 (실제로 양품인 것 중 모델이 올바르게 예측한 비율)
+* Precision과 Recall은 항상 0과 1사이의 값으로 나오게 되고, Precision이 높으면 Recall 이 낮은 경향이 있고, Precision이 낮으면 Recall이 높은 경향이 있다. 따라서 두 값을 종합해서 알고리즘을 평가해야한다.
 * mAP : Precision과 Recall을 종합적으로 평가하는 지표
 
 ![image](https://github.com/snoopyeom/prac/assets/19545380/413eb4ee-51d3-4dbc-8c3f-9721a348257d)
@@ -274,17 +279,18 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 ![image](https://github.com/snoopyeom/prac/assets/19545380/a42505a5-4fa4-4bd4-a337-ec6053736968)
 
 ##### 에폭이 진행됨에 따라 3가지 성능지표 모두 1과 가까워지는 것을 확인할 수 있습니다.
+##### 또한 학습 과정에서 validation 데이터를 테스트 한 결과를 이미지로 볼 수 있습니다.
+
 * 한계점: image data가 불량품 image만 존재하기 때문에 epoch을 계속 돌렸을 때 1에 가까워 진다.
 * 개선점: 모델의 성능을 평가할때 다른 지표를 사용하는 것이 더 좋을 것 같다. ex) box의 size 
-##### 또한 학습 과정에서 validation 데이터를 테스트 한 결과를 이미지로 볼 수 있습니다.
 
 
 
 ## ♟️ 모델 활용
 #### 앞서 저장된 best.pt 파일을 통해 성능을 검증 진행
 
-* Conf : 신뢰도 값. 0과 1사이의 숫자로, 설정한 값을 넘겨야 바운딩 박스를 그립니다.
-*  값을 높이면 더 확실한 객체만 검출됩니다.
+* Conf : 신뢰도 값. 0과 1사이의 숫자로, 값을 높이면 더 확실한 객체만 검출됩니다.
+* conf_thres 값을 따로 지정해주지 않은 경우 0.001로 설정
 
 ![image](https://github.com/snoopyeom/prac/assets/19545380/8095387b-09b6-4bb2-b3bc-f444bc85144b)
 
@@ -298,7 +304,7 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 
 * Source : 라벨링 할 이미지가 위치한 폴더
 * Weight : 사전 훈련된 모델 가중치 파일의 경로
-* Save : 저장 방식
+* Save : 저장 방식- txt,json 등 다양한 방식이 존
 * Exist : 디렉토리가 이미 존재하는 경우 오류 발생시키지 않고 계속 진행
 * Project : 출력될 폴더 
 
