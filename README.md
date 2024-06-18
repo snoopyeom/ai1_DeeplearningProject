@@ -40,6 +40,7 @@ YOLO는 여러 버전이 있으며, 각 버전은 성능과 정확도가 개선�
 * YOLOv4: 다양한 최적화 기법을 통해 성능과 효율성을 더욱 높임
 
 * YOLOv5: PyTorch로 구현된 YOLO 모델로, 사용의 편리성과 성능 측면에서 많이 사용됨
+  s,m,l,x의 4가지 버전이 있는데, s가 가장  가벼운 모델이고, x가 가장 무거운 모델이다.(FPS는 s가 가장 높고, x가 가장 낮음)
   
 * YOLOv7, v8: 최신 버전으로, 다양한 새로운 기법들이 추가되어 성능 향상
   
@@ -102,10 +103,11 @@ YOLOv5 모델을 학습하기 위해서는 환경 설정이 필요합니다.
 #### 하드웨어 및 소프트웨어 요구 사항
 GPU: CUDA를 지원하는 NVIDIA GPU가 필요합니다. YOLOv5는 GPU를 활용한 병렬 처리를 통해 학습 속도를 크게 향상시킬 수 있습니다.
 CUDA 및 cuDNN: NVIDIA의 CUDA Toolkit과 cuDNN 라이브러리를 설치
-Python: Python 3.6 이상 필요
+Python: Python 3.8 이상 필요
 
 #### 필수 라이브러리 설치
 PyTorch: YOLOv5는 PyTorch 프레임워크를 사용합니다. PyTorch는 [PyTorch](https://pytorch.org/)에서 설치할 수 있습니다.
+YoloV5의 경우 최소 PyTorch 1.7이상 필요
 
 기타 라이브러리: 필요한 추가 Python 라이브러리들은 requirements.txt 파일에 명시되어 있습니다. 이를 설치하려면 다음 명령을 사용하면 된다.
 ```python
@@ -194,6 +196,7 @@ Labelme는 pip를 사용하여 설치할 수 있습니다. 터미널이나 명�
 #### 3. yaml 파일 생성
 
 위에서 맞춰준 데이터셋 정보를 담고 있는 파일을 생성해줘야 합니다.
+yaml 파일 안에는 1) training data 경로 2) val data 경로 3) 탐지할 class 개수 4) class 이름 리스트가 들어갑니다.
 
 Yolov5-data 경로에 data.yaml 생성
 
@@ -248,6 +251,14 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 
 ![image](https://github.com/snoopyeom/prac/assets/19545380/3aa6ae5b-cfd0-4b5b-ac7f-b9528569e1d0)
 
+## 성능 높이는 팁
+(YoloV5 공식 깃허브에 모델 성능을 높이는 팁을 참고함)
+* 데이터 셋이 충분히 크고 라벨링이 정확해야함(당연한 얘기)
+* 전체 제이터 셋에  Background image(탐지할 물체가 없는 데이터) 0-10%넣기-이 이미지를 넣어주면 False Positives(FP)가 줄어드는 효과를 볼 수 있다.
+* Pretrained weights 사용하기 
+
+
+
 
 ## 📒 훈련 결과
 #### Yolov5/runs/train/gun_yolov5s_results8폴더를 통해 여러 결과 값을 확인
@@ -269,7 +280,8 @@ Json으로 구성되어 있는 라벨링 파일들을 모두 YOLOv5 형식에 �
 ## ♟️ 모델 활용
 #### 앞서 저장된 best.pt 파일을 통해 성능을 검증 진행
 
-* Conf : 신뢰도 값. 0과 1사이의 숫자로, 값을 높이면 더 확실한 객체만 검출됩니다.
+* Conf : 신뢰도 값. 0과 1사이의 숫자로, 설정한 값을 넘겨야 바운딩 박스를 그립니다.
+*  값을 높이면 더 확실한 객체만 검출됩니다.
 
 ![image](https://github.com/snoopyeom/prac/assets/19545380/8095387b-09b6-4bb2-b3bc-f444bc85144b)
 
